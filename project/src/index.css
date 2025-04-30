@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 51 102 255;
+    --color-primary-light: 102 153 255;
+    --color-primary-dark: 0 51 204;
+    
+    --color-secondary: 131 63 255;
+    --color-secondary-light: 166 120 255;
+    --color-secondary-dark: 95 24 220;
+    
+    --color-accent: 0 204 204;
+    --color-accent-light: 51 229 229;
+    --color-accent-dark: 0 153 153;
+    
+    --color-success: 22 163 74;
+    --color-warning: 245 158 11;
+    --color-error: 220 38 38;
+    
+    --color-background: 10 12 22;
+    --color-surface: 17 20 35;
+    --color-surface-2: 26 29 47;
+
+    --color-text: 248 250 252;
+    --color-text-secondary: 203 213 225;
+    --color-text-tertiary: 148 163 184;
+  }
+
+  body {
+    @apply bg-background text-text font-sans;
+    font-feature-settings: "kern";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Add smooth scrolling to the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-surface;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-2 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary/50;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface rounded-xl border border-surface-2 shadow-md overflow-hidden;
+  }
+  
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent;
+  }
+  
+  .button-primary {
+    @apply px-4 py-2 bg-primary hover:bg-primary-light text-white rounded-lg transition-all duration-200 font-medium;
+  }
+  
+  .button-secondary {
+    @apply px-4 py-2 bg-surface-2 hover:bg-secondary/20 text-white rounded-lg transition-all duration-200 font-medium border border-secondary/30;
+  }
+  
+  .button-accent {
+    @apply px-4 py-2 bg-accent hover:bg-accent-light text-white rounded-lg transition-all duration-200 font-medium;
+  }
+  
+  .input-field {
+    @apply px-4 py-2 bg-surface-2 text-text border border-surface-2 focus:border-primary/50 rounded-lg outline-none transition-all duration-200;
+  }
+  
+  .stat-card {
+    @apply card p-4 flex flex-col gap-2;
+  }
+  
+  .stat-value {
+    @apply text-2xl font-bold;
+  }
+  
+  .stat-label {
+    @apply text-text-secondary text-sm;
+  }
+  
+  .section-title {
+    @apply text-xl font-semibold mb-4;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
