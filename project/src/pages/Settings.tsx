@@ -244,40 +244,7 @@ const Settings: React.FC = () => {
           </div>
           
           {/* API Access */}
-          <div className="card">
-            <div className="p-4 bg-surface-2/50 border-b border-surface-2">
-              <h2 className="font-medium">API Access</h2>
-            </div>
-            <div className="p-6">
-              <div className="mb-4">
-                <p className="text-text-secondary">
-                  Configure your OpenAI API key to enable advanced AI features.
-                </p>
-              </div>
-              
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-2">OpenAI API Key</label>
-                <input
-                  type="password"
-                  placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx"
-                  className="input-field w-full"
-                />
-                <p className="text-text-tertiary text-xs mt-1">
-                  Your API key is stored securely and only used for AI strategy recommendations.
-                </p>
-                {/* 
-                  In a production application, this would be stored securely and managed 
-                  through proper environment variables:
-                  VITE_OPENAI_API_KEY=your_api_key_here
-                */}
-              </div>
-              
-              <button className="button-primary flex items-center">
-                <Save size={18} className="mr-2" />
-                Save API Settings
-              </button>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
