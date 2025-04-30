@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {  Save } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useEffect } from 'react';
 
 
 const Settings: React.FC = () => {
@@ -8,7 +9,42 @@ const Settings: React.FC = () => {
   const [riskTolerance, setRiskTolerance] = useState('medium');
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(true);
+  const [loading, setLoading] = useState(false);
+
   
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const storedSettings = localStorage.getItem('accountSettings');
+    if (storedSettings) {
+      const parsed = JSON.parse(storedSettings);
+      setRiskTolerance(parsed.riskTolerance || 'medium');
+      setEmail(parsed.email || '');
+    }
+  }, []);
+
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const settings = {
+        riskTolerance,
+        email
+      };
+      localStorage.setItem('accountSettings', JSON.stringify(settings));
+      console.log('Saved settings:', JSON.stringify(settings));
+
+      // Simulate network delay for UX
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      alert('Changes saved successfully.');
+    } catch (err) {
+      alert('Failed to save settings.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
   if (!isConnected) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] gap-6 animate-slide-in">
@@ -104,17 +140,48 @@ const Settings: React.FC = () => {
                   type="email"
                   placeholder="your@email.com"
                   className="input-field w-full"
+                  value={email} 
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <p className="text-text-tertiary text-xs mt-1">For notifications and updates</p>
               </div>
               
-              <button className="button-primary flex items-center">
-                <Save size={18} className="mr-2" />
-                Save Changes
-              </button>
+              <button
+    className="button-primary flex items-center"
+    onClick={handleSave}
+    disabled={loading}
+  >
+    {loading ? (
+      <>
+        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+        Saving...
+      </>
+    ) : (
+      <>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="mr-2"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+          <polyline points="17 21 17 13 7 13 7 21"></polyline>
+          <polyline points="7 3 7 8 15 8"></polyline>
+        </svg>
+        Save Changes
+      </>
+    )}
+  </button>
             </div>
           </div>
           
+
           {/* Notification settings */}
           <div id="notifications" className="card mb-6">
             <div className="p-4 bg-surface-2/50 border-b border-surface-2">
@@ -189,10 +256,6 @@ const Settings: React.FC = () => {
                 </div>
               </div>
               
-              <button className="button-primary mt-6 flex items-center">
-                <Save size={18} className="mr-2" />
-                Save Notification Settings
-              </button>
             </div>
           </div>
           
