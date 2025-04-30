@@ -82,52 +82,72 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [isLoading, setIsLoading] = useState(false);
   const [strategies, setStrategies] = useState<Strategy[]>(sampleStrategies);
 
+  const decimalChainId = Number(import.meta.env.VITE_SWELLCHAIN_CHAIN_ID); 
+   
+
+
   const connectWallet = async () => {
     setIsLoading(true);
     try {
-      if (!window.ethereum) {
-        throw new Error('MetaMask is not installed');
+      if (!window.ethereum) throw new Error('MetaMask is not installed');
+  
+     
+      const desiredRpcUrl = import.meta.env.VITE_SWELLCHAIN_RPC_URL;
+      const desiredChainId = import.meta.env.VITE_SWELLCHAIN_CHAIN_ID;
+      const hexChainId = '0x' + Number(desiredChainId).toString(16); // ✅ no leading zero
+      console.log("ChainId",hexChainId);
+
+
+      
+  
+      // Check current chain
+      const currentChainId = await window.ethereum.request({ method: 'eth_chainId' });
+  
+      // Prompt switch if on the wrong chain
+      if (currentChainId !== hexChainId) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: hexChainId }],
+
+          });
+        } catch (switchError: any) {
+          // If chain is not added
+          if (switchError.code === 4902) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: hexChainId,
+                  chainName: 'Swellchain',
+                  nativeCurrency: {
+                    name: 'ETH',
+                    symbol: 'ETH',
+                    decimals: 18
+                  },
+                  rpcUrls: [import.meta.env.VITE_SWELLCHAIN_RPC_URL],
+                  blockExplorerUrls: ['https://explorer.swellnetwork.io'],
+                }],
+              });
+              
+            } catch (addError) {
+              throw new Error('User rejected chain addition.');
+            }
+          } else if (switchError.code === 4001) {
+            throw new Error('User rejected network switch.');
+          } else {
+            throw switchError;
+          }
+        }
       }
-
-      // Request account access
-      const accounts = await window.ethereum.request({ 
-        method: 'eth_requestAccounts' 
-      });
-
-      // Get the provider and signer
+  
+      // Now connect to wallet
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
-
-      // Switch to Swellchain network
-      try {
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: import.meta.env.VITE_SWELLCHAIN_CHAIN_ID }],
-        });
-      } catch (switchError: any) {
-        // If the network doesn't exist, add it
-        if (switchError.code === 4902) {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [{
-              chainId: import.meta.env.VITE_SWELLCHAIN_CHAIN_ID,
-              chainName: 'Swellchain',
-              nativeCurrency: {
-                name: 'ETH',
-                symbol: 'ETH',
-                decimals: 18
-              },
-              rpcUrls: [import.meta.env.VITE_SWELLCHAIN_RPC_URL],
-              blockExplorerUrls: ['https://explorer.swellnetwork.io']
-            }],
-          });
-        } else if (switchError.code === 4001) {
-          alert('Network switch was rejected. Please try again and approve the network switch.');
-          return;
-        }
-      }
-
+  
+      // Simulated user portfolio (optional)
       setUser({
         address,
         portfolio: {
@@ -140,20 +160,16 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
           strategies: []
         }
       });
+  
       setIsConnected(true);
     } catch (error: any) {
-      if (error.code === 4001 || error.message.includes('User rejected')) {
-        alert('Wallet connection was rejected. Please try again and approve the connection request.');
-      } else if (!window.ethereum) {
-        alert('MetaMask is not installed. Please install MetaMask to connect your wallet.');
-      } else {
-        console.error('Error connecting wallet:', error);
-        alert('Failed to connect wallet. Please try again.');
-      }
+      console.error('Wallet connection error:', error.message);
+      alert(error.message || 'Failed to connect wallet.');
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   const disconnectWallet = () => {
     setUser(null);

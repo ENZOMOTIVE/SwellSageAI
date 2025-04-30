@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Bell, Globe, Shield, WalletCards, ChevronRight, Save } from 'lucide-react';
+import {  Save } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
+
 const Settings: React.FC = () => {
-  const { isConnected, user, connectWallet } = useApp();
+  const { isConnected, user, connectWallet, disconnectWallet } = useApp();
   const [riskTolerance, setRiskTolerance] = useState('medium');
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [pushNotifications, setPushNotifications] = useState(true);
@@ -38,55 +39,7 @@ const Settings: React.FC = () => {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sidebar navigation */}
-        <div>
-          <div className="card overflow-hidden">
-            <div className="p-4 bg-surface-2/50 border-b border-surface-2">
-              <h2 className="font-medium">Settings Menu</h2>
-            </div>
-            <nav>
-              <a 
-                href="#account" 
-                className="flex items-center justify-between p-4 border-b border-surface-2 bg-primary/10 text-primary"
-              >
-                <div className="flex items-center">
-                  <WalletCards size={18} className="mr-3" />
-                  <span>Account</span>
-                </div>
-                <ChevronRight size={18} />
-              </a>
-              <a 
-                href="#notifications" 
-                className="flex items-center justify-between p-4 border-b border-surface-2 hover:bg-surface-2/50 text-text-secondary hover:text-text"
-              >
-                <div className="flex items-center">
-                  <Bell size={18} className="mr-3" />
-                  <span>Notifications</span>
-                </div>
-                <ChevronRight size={18} />
-              </a>
-              <a 
-                href="#preferences" 
-                className="flex items-center justify-between p-4 border-b border-surface-2 hover:bg-surface-2/50 text-text-secondary hover:text-text"
-              >
-                <div className="flex items-center">
-                  <Globe size={18} className="mr-3" />
-                  <span>Preferences</span>
-                </div>
-                <ChevronRight size={18} />
-              </a>
-              <a 
-                href="#security" 
-                className="flex items-center justify-between p-4 hover:bg-surface-2/50 text-text-secondary hover:text-text"
-              >
-                <div className="flex items-center">
-                  <Shield size={18} className="mr-3" />
-                  <span>Security</span>
-                </div>
-                <ChevronRight size={18} />
-              </a>
-            </nav>
-          </div>
-        </div>
+       
         
         {/* Main settings content */}
         <div className="lg:col-span-2">
@@ -100,7 +53,7 @@ const Settings: React.FC = () => {
                 <label className="block text-sm font-medium mb-2">Connected Wallet</label>
                 <div className="input-field bg-surface flex items-center justify-between">
                   <span>{user?.address}</span>
-                  <button className="text-primary text-sm">Disconnect</button>
+                  <button className="text-primary text-sm" onClick={disconnectWallet}>Disconnect</button>
                 </div>
                 <p className="text-text-tertiary text-xs mt-1">Connected to Swellchain Network</p>
               </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Menu, Bell, AlertCircle } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
+import { useState
 
+ } from 'react';
 interface TopbarProps {
   toggleSidebar: () => void;
   title: string;
@@ -9,6 +11,7 @@ interface TopbarProps {
 
 export const Topbar: React.FC<TopbarProps> = ({ toggleSidebar, title }) => {
   const { isConnected, connectWallet, user } = useApp();
+  const [dropdown, setdropdown] = useState(false);
 
   return (
     <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-md border-b border-surface-2 shadow-sm">
@@ -43,10 +46,25 @@ export const Topbar: React.FC<TopbarProps> = ({ toggleSidebar, title }) => {
             </div>
           )}
 
-          <button className="p-2 rounded-md text-text-secondary hover:text-text hover:bg-surface-2 relative">
-            <Bell size={20} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
-          </button>
+<div className="relative">
+      <button
+        className="p-2 rounded-md text-text-secondary hover:text-text hover:bg-surface-2 relative"
+        onClick={() => setdropdown(prev => !prev)}
+      >
+        <Bell size={20} />
+        <span className="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+      </button>
+
+      {dropdown && (
+        <div className="absolute right-0 mt-2 w-64 bg-surface-1 border border-border rounded-lg shadow-lg z-50 p-4">
+          <p className="text-sm text-text font-medium">🔔 Notifications</p>
+          <ul className="mt-2 space-y-2 text-sm text-text-secondary">
+            <li>No new notifications.</li>
+            {/* Add more <li> items for more notifications */}
+          </ul>
+        </div>
+      )}
+    </div>
         </div>
       </div>
     </header>
