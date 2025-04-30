@@ -4,6 +4,7 @@ import { useApp } from '../../context/AppContext';
 import { useState
 
  } from 'react';
+ import { useEffect } from 'react';
 interface TopbarProps {
   toggleSidebar: () => void;
   title: string;
@@ -12,6 +13,17 @@ interface TopbarProps {
 export const Topbar: React.FC<TopbarProps> = ({ toggleSidebar, title }) => {
   const { isConnected, connectWallet, user } = useApp();
   const [dropdown, setdropdown] = useState(false);
+  const [savedSettings, setSavedSettings] = useState<{ email?: string; riskTolerance?: string } | null>(null);
+
+  useEffect(() => {
+    if (dropdown) {
+      const stored = localStorage.getItem('accountSettings');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setSavedSettings(parsed);
+      }
+    }
+  }, [dropdown]);
 
   return (
     <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-md border-b border-surface-2 shadow-sm">
@@ -56,14 +68,21 @@ export const Topbar: React.FC<TopbarProps> = ({ toggleSidebar, title }) => {
       </button>
 
       {dropdown && (
-        <div className="absolute right-0 mt-2 w-64 bg-surface-1 border border-border rounded-lg shadow-lg z-50 p-4">
-          <p className="text-sm text-text font-medium">🔔 Notifications</p>
-          <ul className="mt-2 space-y-2 text-sm text-text-secondary">
-            <li>No new notifications.</li>
-            {/* Add more <li> items for more notifications */}
-          </ul>
-        </div>
+  <div className="absolute right-0 mt-2 w-64 bg-surface-1 border border-border rounded-lg shadow-lg z-50 p-4">
+    <p className="text-sm text-text font-medium">🔔 Stored Settings</p>
+    <ul className="mt-2 space-y-2 text-sm text-text-secondary">
+      {savedSettings ? (
+        <>
+          <li><strong>Email:</strong> {savedSettings.email || 'Not provided'}</li>
+          <li><strong>Risk Tolerance:</strong> {savedSettings.riskTolerance}</li>
+        </>
+      ) : (
+        <li>No settings saved yet.</li>
       )}
+    </ul>
+  </div>
+)}
+
     </div>
         </div>
       </div>
