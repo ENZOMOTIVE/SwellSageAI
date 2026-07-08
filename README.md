@@ -1,41 +1,24 @@
 # SwellSageAI
 
-## Project Tags
+> SwellSageAI is an AI-assisted workflow project that connects model-powered behavior with application or protocol tooling.
 
-- `Agentic AI`
-- `Protocol`
+## The Story
 
-## Overview
+SwellSageAI starts with a simple goal: make model-driven behavior useful around wallets, tokens, contracts, or blockchain workflows. Its shape tells the same story: the product interface, the mobile surface, and the AI-assisted workflow live close enough together that a maintainer can see the project as a whole before diving into individual folders.
 
-SwellSageAI is an AI/agent-oriented project with code or structure for automated assistant workflows.
+## What It Includes
 
-## Features
+- A user-facing surface for the product, demo, dashboard, or static experience.
+- Mobile-ready project structure for wallet, Android, or app-focused development.
+- AI-assisted behavior through model providers, bot flows, or agent-oriented tooling.
 
-- User-facing frontend or app interface
-- AI, agent, bot, MCP, or assistant-oriented automation surface
+## How It Is Put Together
 
-## Tech Stack
+| Path | Role |
+| --- | --- |
+| `swellsage_frontend` | frontend or dashboard application |
 
-- React
-- Vite
-- Node.js
-- TypeScript
-- JavaScript
-- HTML
-- CSS
-
-## Project Structure
-
-- `swellsage_frontend` - frontend application code
-
-## Getting Started
-
-### Prerequisites
-
-- Git
-- Node.js 18+
-
-### Setup and Run
+## Local Development
 
 ```bash
 git clone https://github.com/ENZOMOTIVE/SwellSageAI.git
@@ -48,30 +31,39 @@ npm install
 npm run dev
 ```
 
-## Commands
+## Command Surface
 
-- `swellsage_frontend/package.json`: `dev`, `build`, `lint`, `preview`
+| Area | Commands |
+| --- | --- |
+| `swellsage_frontend/package.json` | `dev`, `build`, `lint`, `preview` |
 
 ## Configuration
 
-- Keep model/provider keys and agent secrets outside version control.
+- Keep wallet private keys, RPC URLs, mnemonics, and contract secrets outside version control.
+- Keep model provider keys such as OpenAI or AI SDK credentials in local environment files only.
+- Keep signing keys, platform credentials, and build profiles outside the repository.
 
-## Testing and Quality
+## Quality Checks
 
 - From `swellsage_frontend`, run `npm run lint`.
 - From `swellsage_frontend`, run `npm run build`.
 
-## Documentation Notes
+## Where To Take It Next
 
-- Keep this README aligned with the actual source layout and commands.
-- Add screenshots, API examples, contract addresses, or deployment links when they become stable.
-- Update the project tags when the scope changes.
+- Add screenshots or a short user flow so visitors can see the interface before running it.
+- Describe the model provider, prompt boundaries, and evaluation approach for the AI-assisted parts.
+- Add emulator, device, signing, and release notes for the mobile workflow.
+- Keep setup commands current whenever dependencies, scripts, or deployment targets change.
+- Record important product decisions here so the repository keeps its story as the code evolves.
 
-## Contributing
+## Project Metadata
 
-1. Create a focused branch for the change.
-2. Update code and documentation together.
-3. Run the relevant checks before opening a pull request.
+| Field | Details |
+| --- | --- |
+| Repository | `ENZOMOTIVE/SwellSageAI` |
+| Categories | `Agentic AI`, `Protocol` |
+| Primary stack | React, Vite, Node.js, TypeScript, JavaScript, HTML, CSS |
+
 
 ## License
 
