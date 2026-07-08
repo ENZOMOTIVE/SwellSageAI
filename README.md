@@ -1,42 +1,78 @@
-# 🌊 SwellSage — AI-Powered Restaking Strategy Optimizer
+# SwellSageAI
 
-**SwellSage** is an AI-powered restaking strategy optimizer built for the Swell City Buildathon. The platform is designed to help users maximize their staking and restaking yields across decentralized protocols, with a specific focus on the Swellchain ecosystem and its Liquid Restaking Tokens (LRTs). By combining real-time market analytics, AI-driven insights, and automated strategy execution, SwellSage empowers users to make smarter, faster, and more profitable DeFi investment decisions.
+## Project Tags
 
+- `Agentic AI`
+- `Protocol`
 
+## Overview
 
----
+SwellSageAI is an AI/agent-oriented project with code or structure for automated assistant workflows.
 
-## 🚀 Key Features
+## Features
 
-### 🧠 AI-Powered Strategy Optimization
-- Strategy recommendations using **OpenAI GPT-4**
-- Natural language interaction with contextual awareness
-- Market-aware insights and dynamic strategy suggestions
-- Risk-adjusted portfolio allocation
+- User-facing frontend or app interface
+- AI, agent, bot, MCP, or assistant-oriented automation surface
 
-### 💼 Wallet & Portfolio Management
-- MetaMask integration with Swellchain support
-- Real-time portfolio tracking and asset breakdown
-- Performance analytics with historical data
-- Interactive asset allocation visualization
+## Tech Stack
 
-### 📊 Market Overview
-- Live LRT (Liquid Restaking Token) pricing
-- APY comparisons across protocols
-- Market trend analysis and protocol metrics
+- React
+- Vite
+- Node.js
+- TypeScript
+- JavaScript
+- HTML
+- CSS
 
-### 🤖 Interactive AI Advisor
-- Chat-based AI assistant powered by GPT-4
-- Educational resources and financial tips
-- Personalized restaking strategies based on preferences
+## Project Structure
 
----
+- `swellsage_frontend` - frontend application code
 
-## ⚙️ Environment Variables
+## Getting Started
 
-Create a `.env` file in your root directory:
+### Prerequisites
 
-```env
-VITE_OPENAI_API_KEY=your_openai_api_key_here
-VITE_SWELLCHAIN_RPC_URL=https://swell-mainnet.alt.technology
-VITE_SWELLCHAIN_CHAIN_ID=1923
+- Git
+- Node.js 18+
+
+### Setup and Run
+
+```bash
+git clone https://github.com/ENZOMOTIVE/SwellSageAI.git
+cd SwellSageAI
+```
+
+```bash
+cd swellsage_frontend
+npm install
+npm run dev
+```
+
+## Commands
+
+- `swellsage_frontend/package.json`: `dev`, `build`, `lint`, `preview`
+
+## Configuration
+
+- Keep model/provider keys and agent secrets outside version control.
+
+## Testing and Quality
+
+- From `swellsage_frontend`, run `npm run lint`.
+- From `swellsage_frontend`, run `npm run build`.
+
+## Documentation Notes
+
+- Keep this README aligned with the actual source layout and commands.
+- Add screenshots, API examples, contract addresses, or deployment links when they become stable.
+- Update the project tags when the scope changes.
+
+## Contributing
+
+1. Create a focused branch for the change.
+2. Update code and documentation together.
+3. Run the relevant checks before opening a pull request.
+
+## License
+
+No license file is currently committed. Add one before distributing this project publicly.
