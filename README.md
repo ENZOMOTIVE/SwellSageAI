@@ -1,10 +1,22 @@
 # SwellSageAI
 
-> SwellSageAI is an AI-assisted workflow project that connects model-powered behavior with application or protocol tooling.
+> SwellSageAI is an AI project workspace for turning signals, prompts, or domain data into a guided assistant-style experience.
 
 ## The Story
 
 SwellSageAI starts with a simple goal: make model-driven behavior useful around wallets, tokens, contracts, or blockchain workflows. Its shape tells the same story: the product interface, the mobile surface, and the AI-assisted workflow live close enough together that a maintainer can see the project as a whole before diving into individual folders.
+
+## Detailed Description
+
+SwellSageAI is an AI project workspace for turning signals, prompts, or domain data into a guided assistant-style experience. This README is meant to explain the project like a handoff note: what the idea is, why the repository exists, and how someone can start working with it without opening every file first.
+
+The interesting part of this project is the connection between agent behavior and on-chain or wallet-aware actions. A maintainer should be able to trace both sides: where the model-driven workflow begins, and where protocol, wallet, or transaction logic takes over.
+
+At the top level, the most important entry points are `swellsage_frontend`. Together they show the current boundary of the project and make it easier to separate product code, support files, documentation, and experiments.
+
+The declared Node surfaces include `swellsage_frontend` (scripts: `dev`, `build`, `lint`, `preview`). Those package files are the best starting points for understanding how the app runs, builds, or validates itself.
+
+The visible stack currently points to `React`, `Vite`, `Node.js`, `TypeScript`, `JavaScript`, `HTML`, and `CSS`. Keep this list honest as the project changes so the README remains useful as a first technical map.
 
 ## What It Includes
 
